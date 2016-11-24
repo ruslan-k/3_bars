@@ -24,7 +24,7 @@ def get_closest_bar(data, longitude, latitude):
     json_coordinates = [bar['geoData']['coordinates'] for bar in data]
     nearest_coordinates = min(json_coordinates, key=partial(dist, coordinates))
     bar = list(filter(lambda bar: bar['geoData']['coordinates'] == nearest_coordinates, data))[0]
-    return bar['Name'], bar['Address'], bar
+    return bar['Name'], bar['Address']
 
 if __name__ == '__main__':
     coordinates = input("Введите ваши координаты через запятую, вида 'долгота, широта': ")
