@@ -9,7 +9,7 @@
 Применение:
 
 ```
-python3 bars "filename"
+python3 bars.py "filename"
 ```
 
 filename - путь к файлу json
