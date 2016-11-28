@@ -1,6 +1,9 @@
+# coding: utf-8
+
 import json
 import re
 from functools import partial
+import sys
 
 
 def load_data(filepath):
@@ -32,7 +35,8 @@ if __name__ == '__main__':
         coordinates = input("Неверный ввод. Введите ваши координаты через запятую, вида 'широта, долгота': ")
     longitude, latitude,  = [float(coordinate.strip()) for coordinate in coordinates.split(",")]
 
-    json_data = load_data('data-2897-2016-11-23.json')
+    filepath = sys.argv[1]
+    json_data = load_data(filepath)
 
     print("Cамый большой бар: ", get_biggest_bar(json_data))
     print("Cамый маленький бар: ", get_smallest_bar(json_data))
