@@ -28,16 +28,19 @@ def get_closest_bar(data, longitude, latitude):
     return bar['Name'], bar['Address']
 
 if __name__ == '__main__':
-    coordinates = input("Введите ваши координаты через запятую, вида 'долгота, широта': ")
-    while not re.match('^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$', coordinates):
-        coordinates = input("Неверный ввод. Введите ваши координаты через запятую, вида 'широта, долгота': ")
-    longitude, latitude,  = [float(coordinate.strip()) for coordinate in coordinates.split(",")]
-
     try:
         filepath = sys.argv[1]
         json_data = load_data(filepath)
+
+        coordinates = input("Введите ваши координаты через запятую, вида 'долгота, широта': ")
+        while not re.match('^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$', coordinates):
+            coordinates = input("Неверный ввод. Введите ваши координаты через запятую, вида 'широта, долгота': ")
+        longitude, latitude, = [float(coordinate.strip()) for coordinate in coordinates.split(",")]
         print("Cамый большой бар: ", get_biggest_bar(json_data))
         print("Cамый маленький бар: ", get_smallest_bar(json_data))
         print("Ближайший бар:", get_closest_bar(json_data, longitude, latitude))
+
     except FileNotFoundError:
         print("Неверный путь к файлу или имя файла")
+    except json.decoder.JSONDecodeError:
+        print("Файл не является файлов JSON")
