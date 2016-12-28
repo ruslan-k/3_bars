@@ -9,7 +9,11 @@
 Применение:
 
 ```
+<<<<<<< HEAD
 python3 bars.py "filepath"
+=======
+python3 bars.py "filename"
+>>>>>>> be7e02a3c14e2baa88d936493ed3307f41987ddb
 ```
 
 filepath - путь к файлу json
