@@ -15,15 +15,11 @@ def load_data(filepath):
         sys.exit("Файл не является файлов JSON")
 
 def get_coordinates():
-    longitude = None
-    latitude = None
-    while not longitude:
+    longitude = latitude = None
+    while not longitude or not latitude:
         try:
-            longitude = float(input('Введите долготу: '))
-        except ValueError:
-            print('Неверные данные попробуйте еще раз')
-    while not latitude:
-        try:
+            if not longitude:
+                longitude = float(input('Введите долготу: '))
             latitude = float(input('Введите широту: '))
         except ValueError:
             print('Неверные данные попробуйте еще раз')
