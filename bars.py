@@ -16,7 +16,7 @@ def load_data(filepath):
 
 def get_coordinates():
     longitude = latitude = None
-    while not longitude or not latitude:
+    while not latitude:
         try:
             if not longitude:
                 longitude = float(input('Введите долготу: '))
