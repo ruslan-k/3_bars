@@ -1,6 +1,4 @@
 import json
-import re
-from functools import partial
 import sys
 
 
@@ -14,16 +12,15 @@ def load_data(filepath):
     except json.decoder.JSONDecodeError:
         sys.exit("Файл не является файлов JSON")
 
+
 def get_coordinates():
-    longitude = latitude = None
-    while not latitude:
-        try:
-            if not longitude:
-                longitude = float(input('Введите долготу: '))
-            latitude = float(input('Введите широту: '))
-        except ValueError:
-            print('Неверные данные попробуйте еще раз')
+    try:
+        longitude = float(input('Введите долготу: '))
+        latitude = float(input('Введите широту: '))
+    except ValueError:
+        sys.exit('Неверный тип данных при вводе или пустой ввод, попробуйте снова.')
     return longitude, latitude
+
 
 def get_biggest_bar(data):
     bar = max(data, key=lambda seats: seats['SeatsCount'])
@@ -36,10 +33,9 @@ def get_smallest_bar(data):
 
 
 def get_closest_bar(data, coordinates):
-    json_coordinates = [bar['geoData']['coordinates'] for bar in data]
-    closest_coord = min(json_coordinates, key=lambda c: (c[0]- coordinates[0])**2 + (c[1]-coordinates[1])**2)
-    bar = list(filter(lambda x: x.get('geoData').get('coordinates') == closest_coord, data))[0]
-    return bar['Name'], bar['Address']
+    closest_bar = min(data, key=lambda c: (c['geoData']['coordinates'][0] - coordinates[0]) ** 2 + (c['geoData']['coordinates'][1] - coordinates[1]) ** 2)
+    return closest_bar['Name'], closest_bar['Address']
+
 
 if __name__ == '__main__':
     file_path = sys.argv[1]
